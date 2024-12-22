@@ -29,8 +29,8 @@ public void createUser(@RequestBody Users user){
     public ResponseEntity<?> updateUser(@RequestBody Users user, @PathVariable String username1){
     Users userInDB = service.findByUsername(username1);
     if(userInDB != null){
-        userInDB.setUsername(userInDB.getUsername());
-        userInDB.setPassword(userInDB.getPassword());
+        user.setUsername(userInDB.getUsername());
+        user.setPassword(userInDB.getPassword());
         service.save(userInDB);
         return new ResponseEntity<>(userInDB,HttpStatus.OK);
     }
