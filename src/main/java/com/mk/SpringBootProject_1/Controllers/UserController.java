@@ -29,13 +29,13 @@ public void createUser(@RequestBody Users user){
     public ResponseEntity<?> updateUser(@RequestBody Users user, @PathVariable String username1){
     Users userInDB = service.findByUsername(username1);
     if(userInDB != null){
+        return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+    }
+    else {
         user.setUsername(userInDB.getUsername());
         user.setPassword(userInDB.getPassword());
         service.save(userInDB);
         return new ResponseEntity<>(userInDB,HttpStatus.OK);
-    }
-    else {
-        return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
     }
 }
 }
