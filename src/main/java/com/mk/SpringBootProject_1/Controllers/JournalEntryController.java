@@ -1,7 +1,9 @@
 package com.mk.SpringBootProject_1.Controllers;
 
 import com.mk.SpringBootProject_1.Entity.JournalEntry;
+import com.mk.SpringBootProject_1.Entity.Users;
 import com.mk.SpringBootProject_1.Service.JournalEntryService;
+import com.mk.SpringBootProject_1.Service.userService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,10 +23,17 @@ public class JournalEntryController {
     @Autowired
     private JournalEntryService journalEntryService;
 
-    @GetMapping
-    public List<JournalEntry> getAllEntry() {
+    @Autowired
+    private userService UserService;
 
-        return journalEntryService.findAll();
+    @GetMapping("{userName}")
+    public ResponseEntity<?> getAllEntryofUser(@PathVariable String userName) {
+        Users userN = UserService.findByUsername(userName);
+        List<JournalEntry> all=userN.getEntries();
+        if(all!=null && !all.isEmpty()) {
+            return new ResponseEntity<>(all, HttpStatus.OK);
+        }
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
