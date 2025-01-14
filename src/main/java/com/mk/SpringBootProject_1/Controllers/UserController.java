@@ -25,18 +25,31 @@ public void createUser(@RequestBody Users user){
     service.save(user);
 }
 
-@PutMapping("/{username1}")
+
+
+    @PutMapping("/{username1}")
     public ResponseEntity<?> updateUser(@RequestBody Users user, @PathVariable String username1){
-    Users userInDB = service.findByUsername(username1);
-    if(userInDB != null){
-        return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        // Find the user from the DB using username1
+        Users userInDB = service.findByUsername(username1);
+
+        // If user is not found, return a 404 error
+        if(userInDB == null){
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
+        else {
+
+            userInDB.setUsername(user.getUsername());
+            userInDB.setPassword(user.getPassword());
+
+            // Save the updated user
+            service.save(userInDB);
+
+            // Return the updated user
+            return new ResponseEntity<>(userInDB, HttpStatus.OK);
+        }
     }
-    else {
-        user.setUsername(userInDB.getUsername());
-        user.setPassword(userInDB.getPassword());
-        service.save(userInDB);
-        return new ResponseEntity<>(userInDB,HttpStatus.OK);
-    }
-}
+
+
+
 }
 

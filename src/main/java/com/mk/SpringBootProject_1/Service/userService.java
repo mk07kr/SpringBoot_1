@@ -18,6 +18,7 @@ public class userService {
     private userRepo userRepository;
 
     public void save(Users user) {
+        user.setUsername(user.getUsername().trim());
         userRepository.save(user);
     }
 
@@ -32,8 +33,13 @@ public class userService {
         userRepository.deleteById(id);
     }
 
-    public Users findByUsername(String userName){
-        return userRepository.findByUsername(userName);
+    public Users findByUsername(String username) {
+        Users user = userRepository.findByUsername(username.trim());
+        if (user == null) {
+            System.out.println("User with username " + username + " not found");
+        }
+        return user;
     }
+
 
 }
