@@ -1,8 +1,10 @@
 package com.mk.SpringBootProject_1.Entity;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NonNull;
 import java.util.*;
+
+import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -11,7 +13,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 
-@Data
+@Getter
+@Setter
 @Document(collection = "users")
 public class Users
 {
