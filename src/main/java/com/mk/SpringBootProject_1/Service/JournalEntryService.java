@@ -36,7 +36,7 @@ public class JournalEntryService {
             user.getEntries().add(saved);
             UserService.save(user);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+//            System.out.println(e.getMessage());
             throw new RuntimeException("Error saving journal entry");
         }
     }
@@ -56,7 +56,7 @@ public class JournalEntryService {
             entryRepo.deleteById(id);
         }
         catch (Exception e) {
-            log.error("e: ", e);
+//            log.error("e: ", e);
         }
     }
 }
