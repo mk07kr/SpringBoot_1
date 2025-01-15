@@ -3,6 +3,8 @@ package com.mk.SpringBootProject_1.Service;
 import com.mk.SpringBootProject_1.Entity.JournalEntry;
 import com.mk.SpringBootProject_1.Entity.Users;
 import com.mk.SpringBootProject_1.Repository.EntryRepo;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +17,7 @@ import java.util.Optional;
 @Component
 public class JournalEntryService {
 
+    private static final Logger log = LogManager.getLogger(JournalEntryService.class);
     @Autowired
     private EntryRepo entryRepo;
 
@@ -52,7 +55,7 @@ public class JournalEntryService {
             entryRepo.deleteById(id);
         }
         catch (Exception e) {
-            System.out.println(e);
+            log.error("e: ", e);
         }
     }
 }
