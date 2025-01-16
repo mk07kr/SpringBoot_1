@@ -3,7 +3,6 @@ package com.mk.SpringBootProject_1.Service;
 
 import com.mk.SpringBootProject_1.Entity.Users;
 import com.mk.SpringBootProject_1.Repository.userRepo;
-import lombok.NonNull;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,11 +24,12 @@ public class userService {
 
     public void save(Users user) {
         user.setUsername(user.getUsername().trim());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(List.of("USER"));
         userRepository.save(user);
     }
     public void saveNewUser(Users user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(List.of("USER"));
+        user.setUsername(user.getUsername().trim());
         userRepository.save(user);
     }
 
