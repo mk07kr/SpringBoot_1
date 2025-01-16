@@ -32,7 +32,7 @@ public class UserController {
         userInDB.setPassword(user.getPassword());
 
         // Save the updated user
-        service.save(userInDB);
+        service.saveNewUser(userInDB);
 
         // Return the updated user
         return new ResponseEntity<>(userInDB, HttpStatus.OK);

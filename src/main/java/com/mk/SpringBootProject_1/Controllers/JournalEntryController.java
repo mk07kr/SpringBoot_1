@@ -8,15 +8,18 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/Journal")
+@RequestMapping("/journal")
 public class JournalEntryController {
 
 
@@ -26,9 +29,11 @@ public class JournalEntryController {
     @Autowired
     private userService UserService;
 
-    @GetMapping("{userName}")
-    public ResponseEntity<?> getAllEntryofUser(@PathVariable String userName) {
-        Users userN = UserService.findByUsername(userName);
+    @GetMapping
+    public ResponseEntity<?> getAllEntryofUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Users userN = UserService.findByUsername(username);
         List<JournalEntry> all=userN.getEntries();
         if(all!=null && !all.isEmpty()) {
             return new ResponseEntity<>(all, HttpStatus.OK);
@@ -37,11 +42,13 @@ public class JournalEntryController {
     }
 
 
-    @PostMapping("{userName}")
-    public ResponseEntity<JournalEntry> addEntry(@RequestBody JournalEntry myEntry,@PathVariable String userName) {
+    @PostMapping
+    public ResponseEntity<JournalEntry> addEntry(@RequestBody JournalEntry myEntry) {
             try{
-                    journalEntryService.save(myEntry,userName);
-//                    myEntry.setDate(LocalDateTime.now());
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                String username = authentication.getName();
+                    journalEntryService.save(myEntry,username);
+                    myEntry.setDate(LocalDateTime.now());
                     return new ResponseEntity<>(myEntry, HttpStatus.CREATED);
             }
             catch(Exception e){
@@ -52,13 +59,18 @@ public class JournalEntryController {
 
     @GetMapping("id/{myId}")
     public ResponseEntity<JournalEntry> getEntryById(@PathVariable ObjectId myId) {
-            Optional<JournalEntry> byId = journalEntryService.findById(myId);
-            if (byId.isPresent()) {
-                    return new ResponseEntity<>(byId.get(), HttpStatus.OK);
-            }
+             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+             String username = authentication.getName();
+             Users user=UserService.findByUsername(username);
+             List<JournalEntry> collect = user.getEntries().stream().filter(entry -> entry.getId().equals(myId))
+                     .collect(Collectors.toList());
+             if(!collect.isEmpty()) {
+                 Optional<JournalEntry> byId = journalEntryService.findById(myId);
+                 if (byId.isPresent()) {
+                     return new ResponseEntity<>(byId.get(), HttpStatus.OK);
+                 }
+             }
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
-
     }
 
     @DeleteMapping("id/{userName}/{myId}")

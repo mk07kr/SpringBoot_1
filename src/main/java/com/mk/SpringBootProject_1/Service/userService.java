@@ -1,6 +1,7 @@
 package com.mk.SpringBootProject_1.Service;
 
 
+
 import com.mk.SpringBootProject_1.Entity.Users;
 import com.mk.SpringBootProject_1.Repository.userRepo;
 import org.bson.types.ObjectId;
@@ -22,14 +23,13 @@ public class userService {
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public void save(Users user) {
+    public void saveNewUser(Users user) {
         user.setUsername(user.getUsername().trim());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(List.of("USER"));
         userRepository.save(user);
     }
-    public void saveNewUser(Users user) {
-        user.setUsername(user.getUsername().trim());
+    public void save(Users user) {
         userRepository.save(user);
     }
 
@@ -44,12 +44,8 @@ public class userService {
         userRepository.deleteById(id);
     }
 
-    public Users findByUsername(String username) {
-        Users user = userRepository.findByUsername(username.trim());
-        if (user == null) {
-            System.out.println("User with username " + username + " not found");
-        }
-        return user;
+  public Users findByUsername(String username) {
+     return  userRepository.findByUsername(username);
     }
 
 
