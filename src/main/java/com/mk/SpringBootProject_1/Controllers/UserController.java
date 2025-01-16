@@ -13,17 +13,12 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-@Autowired
+    @Autowired
     private userService service;
 
-@GetMapping
-public List<Users> getAllUsers(){
-    return service.getAll();
-}
-@PostMapping
-public void createUser(@RequestBody Users user){
-    service.save(user);
-}
+
+
+
 
 
 
