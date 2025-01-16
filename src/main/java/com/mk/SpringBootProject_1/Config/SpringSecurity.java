@@ -1,6 +1,7 @@
 package com.mk.SpringBootProject_1.Config;
 
 
+import com.mk.SpringBootProject_1.Service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +21,7 @@ public class SpringSecurity {
 
 
     @Autowired
-//    private UserDetailsServiceImpl userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
 
     @Bean
