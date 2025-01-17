@@ -29,7 +29,13 @@ public class userService {
         user.setRoles(List.of("USER"));
         userRepository.save(user);
     }
-    public void save(Users user) {
+    public void saveAdmin(Users user) {
+        user.setUsername(user.getUsername().trim());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(List.of("USER", "ADMIN"));
+        userRepository.save(user);
+    }
+        public void save(Users user) {
         userRepository.save(user);
     }
 
