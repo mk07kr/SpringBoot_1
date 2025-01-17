@@ -1,13 +1,13 @@
 package com.mk.SpringBootProject_1;
 
 import com.mk.SpringBootProject_1.Service.userService;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.test.context.SpringBootTest;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,6 +18,18 @@ class SpringBootProject1ApplicationTests {
 	@Autowired
 	private userService service;
 
+//	@BeforeAll
+//	static void setUpBeforeClass() throws Exception {
+//		This will get invoked before all test cases/methods written
+//	}
+
+//	@Test -> used to annotate for normal tests
+//	@BeforeTestMethod @TestConstructor() @TestComponent @TestBean @JdbcTest
+
+//	@BeforeEach
+//	void setUp() {
+//		This will get invoked before each Test Methods used to initialize something
+//	}
 
 	//Asset means Dawa(promise)
 	//Check methods of spring application
@@ -46,4 +58,13 @@ class SpringBootProject1ApplicationTests {
 	void test(int a,int b,int expected){
 		assertEquals(expected,a+b);
 	}
+
+//	@AfterTransaction -> will invoke after a Transactional method gets tested
+
+//			@AfterEach
+//	void afterEach() {
+//		will get invoked after each method tested using Junit testing
+//			}
+
+//			@BeforeTestMethod @AfterTestMethod All these annotations are used as per their names
 }
