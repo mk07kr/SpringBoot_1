@@ -1,0 +1,7 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://mk07kr:Mayank123@cluster0.3nplb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&ssl=true
+      host: 27017
+      database: journalDB
+      auto-index-creation: true
