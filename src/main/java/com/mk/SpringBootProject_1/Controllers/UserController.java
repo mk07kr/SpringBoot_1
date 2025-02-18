@@ -1,7 +1,9 @@
 package com.mk.SpringBootProject_1.Controllers;
 
+import com.mk.SpringBootProject_1.Api_response.Weather;
 import com.mk.SpringBootProject_1.Entity.Users;
 import com.mk.SpringBootProject_1.Repository.userRepo;
+import com.mk.SpringBootProject_1.Service.WeatherService;
 import com.mk.SpringBootProject_1.Service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,12 @@ public class UserController {
 
     @Autowired
     private userService service;
+
+    @Autowired
+    private WeatherService weatherService;
+
+    @Autowired
+    private Weather weather;
 
     @Autowired
     private userRepo repo;
@@ -44,6 +52,18 @@ public class UserController {
         repo.deleteByUsername(authentication.getName());
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @GetMapping
+    public ResponseEntity<?> greeting() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Weather weather= weatherService.getWeather("Mumbai");
+        String greet="";
+        if(weather!=null){
+            greet=" Weather feels like "+weather.getCurrent().getFeelslike_c();
+        }
+        return new ResponseEntity<>("Hii "+authentication.getName()+greet,HttpStatus.OK);
+    }
+
+
 }
 
 
