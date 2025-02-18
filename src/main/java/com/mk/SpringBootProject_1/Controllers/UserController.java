@@ -58,7 +58,7 @@ public class UserController {
         Weather weather= weatherService.getWeather("Mumbai");
         String greet="";
         if(weather!=null){
-            greet=" Weather feels like "+weather.getCurrent().getFeelslike_c();
+            greet=" Weather feels like "+weather.getCurrent().getFeelslike_c()+" Humidity = "+weather.getCurrent().getHumidity();
         }
         return new ResponseEntity<>("Hii "+authentication.getName()+greet,HttpStatus.OK);
     }
@@ -66,7 +66,7 @@ public class UserController {
 
 }
 
-//sk_0685ffff707ec93a4274104ac432a9445399bad070dbf9f7 - eleven labs apiKey
+
 
 
 
