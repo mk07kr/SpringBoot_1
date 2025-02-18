@@ -10,6 +10,9 @@ import java.util.*;
 @Component public class AppCache {
 public Map<String,String> appCache;
 
+public enum keys{
+    WEATHER_API
+}
 @Autowired
 private ConfigApiRepo configApiRepo;
 

@@ -1,5 +1,6 @@
 package com.mk.SpringBootProject_1.Controllers;
 
+import com.mk.SpringBootProject_1.Cache.AppCache;
 import com.mk.SpringBootProject_1.Entity.Users;
 import com.mk.SpringBootProject_1.Service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class AdminController {
 
     @Autowired
     private userService UserService;
+    @Autowired
+    private AppCache appCache;
 
     @GetMapping("/all")
     public ResponseEntity<?> getAllUsers() {
@@ -32,4 +35,8 @@ public class AdminController {
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
+    @GetMapping("/clear-Cache")
+    public void clearAppCache(){
+        appCache.init();
+    }
 }
