@@ -1,0 +1,28 @@
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://mk07kr:Mayank123@cluster0.3nplb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&ssl=true
+      host: 27017
+      database: journalDB
+      auto-index-creation: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: mk1309kr@gmail.com
+    password: nkxp batg njgt vfld
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
+
+weather:
+  api:
+    key: bb903c0a03324a75a6f181329251702
+
+
+# sk_0685ffff707ec93a4274104ac432a9445399bad070dbf9f7 - eleven labs apiKey
