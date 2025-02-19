@@ -37,8 +37,8 @@ public class UserSchduler {
         List<Users> users = userImpl.getUserForSA();
         for (Users user : users) {
             List<JournalEntry> entries = user.getEntries();
-            List<String> filteredEntries = entries.stream().filter(x -> x.getDate().
-                    isAfter(LocalDateTime.now().minusDays(7))).map(x -> String.valueOf(x.getSentiment())).toList();
+            List<Sentiment> filteredEntries = entries.stream().filter(x -> x.getDate().
+                    isAfter(LocalDateTime.now().minusDays(7))).map(x -> Sentiment.valueOf(String.valueOf((x.getSentiment())))).toList();
 //            String jointEntry = String.join(" ", filteredEntries);
 //            String sentiment = saService.analyzeSentiment(jointEntry);
             Map<Sentiment, Integer> sCounts = new HashMap<>();
