@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
 
 
 import java.util.List;
 
+@Component
 public class UserRepoImpl {
 
     @Autowired
@@ -16,7 +18,7 @@ public class UserRepoImpl {
 
     public List<Users> getUserForSA() {
         Query q=new Query();
-//        q.addCriteria(Criteria.where("username").is("thala"));
+//        q.addCriteria(Criteria.where("username").is("thala")); Example
         q.addCriteria(Criteria.where("email").exists(true));
         q.addCriteria(Criteria.where("email").ne(null).ne(""));
         q.addCriteria(Criteria.where("sentiment").is(true));
