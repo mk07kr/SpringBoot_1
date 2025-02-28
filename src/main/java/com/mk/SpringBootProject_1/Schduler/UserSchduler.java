@@ -46,14 +46,18 @@ public class UserSchduler {
                 if (sentiment != null) {
                     sCounts.put(sentiment, sCounts.getOrDefault(sentiment, 0) + 1);
                 }
-                Sentiment mostFreqSntmnt = null;
-                int maxCount=0;
-                for(Map.Entry<Sentiment, Integer> entry : sCounts.entrySet()) {
-                    if(entry.getValue()>maxCount) {
-                        maxCount=entry.getValue();
-                        mostFreqSntmnt = entry.getKey();
-                    }
-                }
+//                Sentiment mostFreqSntmnt = null;
+//                int maxCount=0;
+//                for(Map.Entry<Sentiment, Integer> entry : sCounts.entrySet()) {
+//                    if(entry.getValue()>maxCount) {
+//                        maxCount=entry.getValue();
+//                        mostFreqSntmnt = entry.getKey();
+//                    }
+//                }
+                Sentiment mostFreqSntmnt = sCounts.entrySet().stream()
+                        .max(Map.Entry.comparingByValue())
+                        .map(Map.Entry::getKey)
+                        .orElse(null);
 
                 if (mostFreqSntmnt != null) {
                     emailService.sendEmail(user.getEmail(), "Sentiment Analysis for last 7 days", mostFreqSntmnt.toString());
