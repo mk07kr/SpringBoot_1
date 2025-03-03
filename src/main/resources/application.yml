@@ -1,5 +1,30 @@
 
 spring:
+#  kafka:
+#    properties:
+#      sasl:
+#        mechanism: PLAIN
+#        jaas:
+#          config: org.apache.kafka.common.security.plain.PlainLoginModule required username='PGIM7TOV2ERRGRK2' password='vVIZ8+/4Z4Bna4GjWlwFUVHiHJxlCW9Uws//ga6oUbxMO3VLgl1UkCFE7ZBBoAw1';
+#      security:
+#        protocol: SASL_SSL
+#    bootstrap-servers: pkc-l7pr2.ap-south-1.aws.confluent.cloud:9092
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    consumer:
+#      group-id: weekly-sentiment-group
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      properties:
+#        spring.json.trusted.packages: com.mk.SpringBootProject_1.model
+#    session:
+#      timeout:
+#        ms: 45000
+#  client:
+#    id: ccloud-springboot-client-b18cf954-54bc-49df-ace5-b7d2d0aeed0d
+
+
   data:
     mongodb:
       uri: mongodb+srv://mk07kr:Mayank123@cluster0.3nplb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&ssl=true
@@ -26,6 +51,12 @@ spring:
 weather:
   api:
     key: bb903c0a03324a75a6f181329251702
+
+
+
+
+
+
 
 
 # sk_0685ffff707ec93a4274104ac432a9445399bad070dbf9f7 - eleven labs apiKey

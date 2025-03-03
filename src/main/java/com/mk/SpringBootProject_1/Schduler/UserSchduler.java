@@ -7,7 +7,9 @@ import com.mk.SpringBootProject_1.Repository.UserRepoImpl;
 import com.mk.SpringBootProject_1.Service.EmailService;
 import com.mk.SpringBootProject_1.Service.SentimentAnalysisService;
 import com.mk.SpringBootProject_1.enums.Sentiment;
+import com.mk.SpringBootProject_1.model.SentimentData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
@@ -30,6 +32,9 @@ public class UserSchduler {
 
     @Autowired
     private AppCache appCache;
+
+//    @Autowired
+//    private KafkaTemplate<String, SentimentData> kafkaTemplate;
 
 
     @Scheduled(cron="0 0 9 * * Sun") // Format of cron = "sec min hour day month dayName"
@@ -61,6 +66,8 @@ public class UserSchduler {
 
                 if (mostFreqSntmnt != null) {
                     emailService.sendEmail(user.getEmail(), "Sentiment Analysis for last 7 days", mostFreqSntmnt.toString());
+//                    SentimentData sentimentData =SentimentData.builder().email(user.getEmail()).sentiment("Sentiment for last 7 days "+mostFreqSntmnt).build();
+//                    kafkaTemplate.send("weekly-sentiments",sentimentData.getEmail(),sentimentData);
                 }
             }
         }
