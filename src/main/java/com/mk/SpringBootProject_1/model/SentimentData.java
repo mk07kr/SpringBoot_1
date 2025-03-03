@@ -1,17 +1,14 @@
 package com.mk.SpringBootProject_1.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+//import lombok.Getter;
+//import lombok.Setter;
+//
+//@Getter
+//@Setter
 public class SentimentData {
 
-  private String email;
-  private String sentiment;
+//  private String email;
+//  private String sentiment;
 
 }
