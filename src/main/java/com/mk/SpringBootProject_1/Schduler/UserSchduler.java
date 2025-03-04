@@ -33,8 +33,8 @@ public class UserSchduler {
     @Autowired
     private AppCache appCache;
 
-//    @Autowired
-//    private KafkaTemplate<String, SentimentData> kafkaTemplate;
+    @Autowired
+    private KafkaTemplate<String, SentimentData> kafkaTemplate;
 
 
     @Scheduled(cron="0 0 9 * * Sun") // Format of cron = "sec min hour day month dayName"
@@ -65,9 +65,17 @@ public class UserSchduler {
 //                        .orElse(null);
 
                 if (mostFreqSntmnt != null) {
-                    emailService.sendEmail(user.getEmail(), "Sentiment Analysis for last 7 days", mostFreqSntmnt.toString());
-//                    SentimentData sentimentData =SentimentData.builder().email(user.getEmail()).sentiment("Sentiment for last 7 days "+mostFreqSntmnt).build();
-//                    kafkaTemplate.send("weekly-sentiments",sentimentData.getEmail(),sentimentData);
+                    try{
+                        emailService.sendEmail(user.getEmail(), "Sentiment Analysis for last 7 days",
+                                mostFreqSntmnt.toString());
+                    }
+                    catch (Exception e) {
+                        SentimentData sentimentData = SentimentData.builder()
+                                .email(user.getEmail())
+                                .sentiment("Sentiment for last 7 days "+mostFreqSntmnt)
+                                .build();
+                        kafkaTemplate.send("weekly-sentiments",sentimentData.getEmail(),sentimentData);
+                    }
                 }
             }
         }

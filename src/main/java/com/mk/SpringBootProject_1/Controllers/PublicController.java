@@ -30,6 +30,12 @@ public class PublicController {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    @GetMapping("/health-Check")
+    public String healthCheck() {
+        return "Status Running :OK";
+    }
+
+
     @PostMapping("/signup")
     public void signup(@RequestBody Users user){
         service.saveNewUser(user);
