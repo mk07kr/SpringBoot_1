@@ -1,5 +1,6 @@
 package com.mk.SpringBootProject_1.Utility;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
@@ -12,10 +13,30 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    private String SECRET_KEY = "MK#007secret123*#qwerty";
+    private String SECRET_KEY = "MK#007secret123*#qwertyuiopasdfghjklzxcvbnm123456";
 
     public SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    }
+    public String extractUsername(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.getSubject();
+    }
+
+    public Date extractExpiration(String token) {
+        return extractAllClaims(token).getExpiration();
+    }
+
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    private Boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date());
     }
 
     public String generateToken(String username) {
@@ -33,5 +54,8 @@ public class JwtUtil {
                 .expiration(new Date(System.currentTimeMillis()+1000*60*5))
                 .signWith(getSigningKey())
                 .compact();
+    }
+    public Boolean validateToken(String token) {
+        return !isTokenExpired(token);
     }
 }

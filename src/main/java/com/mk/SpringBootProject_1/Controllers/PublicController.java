@@ -39,8 +39,8 @@ public class PublicController {
         try{
             authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
             UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
-            String jwtToken=jwtUtil.generateToken(userDetails.getUsername());
-            return new ResponseEntity<>(jwtToken, HttpStatus.OK);
+            String jwt=jwtUtil.generateToken(userDetails.getUsername());
+            return new ResponseEntity<>(jwt, HttpStatus.OK);
 
         }
         catch (Exception e){
